@@ -166,7 +166,11 @@
       font-size: 13px;
       color: #999;
     }
-
+.reaksi-vote {
+  font-size: 16px;
+  color: #00ffb3;
+  margin-bottom: 10px;
+}
     .emoji {
       font-size: 18px;
     }
@@ -235,15 +239,17 @@
           Browser kamu tidak mendukung pemutar audio.
         </audio>
       </div>
-       <div class="reaksi">
-  <h2 class="emoji">💬 Kasih Reaksi Buat Mimin🤙!</h2>
-  <div class="reaksi-tombol">
-    <button onclick="kasihReaksi('❤️')">❤️</button>
-    <button onclick="kasihReaksi('🔥')">🔥</button>
-    <button onclick="kasihReaksi('😍')">😍</button>
-    <button onclick="kasihReaksi('😂')">😂</button>
-    <button onclick="kasihReaksi('🤙')">🤙
-</button>
+       <div class="reaksi-vote">
+  <p><strong>Total Reaksi:</strong> <span id="jumlah-vote">5.7k</span></p>
+</div>
+
+<div class="reaksi-tombol">
+  <button onclick="kasihReaksi('❤️')">❤️</button>
+  <button onclick="kasihReaksi('🔥')">🔥</button>
+  <button onclick="kasihReaksi('😍')">😍</button>
+  <button onclick="kasihReaksi('😂')">😂</button>
+  <button onclick="kasihReaksi('🤙')">🤙</button>
+</div>
     </div>
     <div id="animasi-emoji"></div>
 </div>
@@ -253,6 +259,8 @@
     </div>
   </div>
   <script>
+  let totalVote = 5700;
+
   function kasihReaksi(emoji) {
     const container = document.getElementById("animasi-emoji");
     const span = document.createElement("span");
@@ -264,7 +272,17 @@
     setTimeout(() => {
       span.remove();
     }, 1500);
+
+    // Tambah vote
+    totalVote++;
+    document.getElementById("jumlah-vote").innerText = formatVote(totalVote);
   }
-</script>
+
+  function formatVote(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + "M";
+    if (n >= 1000) return (n / 1000).toFixed(1) + "k";
+    return n;
+  }
+  </script>
 </body>
 </html>
