@@ -70,7 +70,56 @@
       color: #00ffb3;
       font-size: 20px;
     }
+    .reaksi {
+  margin-top: 40px;
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #00ffb3;
+}
 
+.reaksi-tombol {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.reaksi-tombol button {
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.reaksi-tombol button:hover {
+  transform: scale(1.4);
+}
+
+#animasi-emoji {
+  position: relative;
+  height: 50px;
+  margin-top: 20px;
+}
+
+.emoji-terbang {
+  position: absolute;
+  font-size: 28px;
+  animation: terbang 1.5s ease-out forwards;
+}
+
+@keyframes terbang {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.8);
+  }
+}
     .description {
       background-color: #1f1f1f;
       border-left: 5px solid #00ffb3;
@@ -186,11 +235,36 @@
           Browser kamu tidak mendukung pemutar audio.
         </audio>
       </div>
-
+       <div class="reaksi">
+  <h2 class="emoji">💬 Kasih Reaksi Buat Mimin🤙!</h2>
+  <div class="reaksi-tombol">
+    <button onclick="kasihReaksi('❤️')">❤️</button>
+    <button onclick="kasihReaksi('🔥')">🔥</button>
+    <button onclick="kasihReaksi('😍')">😍</button>
+    <button onclick="kasihReaksi('😂')">😂</button>
+    <button onclick="kasihReaksi('🤙')">🤙
+</button>
+    </div>
+    <div id="animasi-emoji"></div>
+</div>
       <footer>
         &copy; 2025 DayFlixsey. All rights reserved.
       </footer>
     </div>
   </div>
+  <script>
+  function kasihReaksi(emoji) {
+    const container = document.getElementById("animasi-emoji");
+    const span = document.createElement("span");
+    span.classList.add("emoji-terbang");
+    span.innerText = emoji;
+    span.style.left = Math.random() * 80 + "px";
+    container.appendChild(span);
+
+    setTimeout(() => {
+      span.remove();
+    }, 1500);
+  }
+</script>
 </body>
 </html>
