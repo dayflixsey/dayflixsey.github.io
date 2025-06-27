@@ -257,32 +257,5 @@
         &copy; 2025 DayFlixsey. All rights reserved.
       </footer>
     </div>
-  </div>
-  <script>
-  let totalVote = 15700;
-
-  function kasihReaksi(emoji) {
-    const container = document.getElementById("animasi-emoji");
-    const span = document.createElement("span");
-    span.classList.add("emoji-terbang");
-    span.innerText = emoji;
-    span.style.left = Math.random() * 80 + "px";
-    container.appendChild(span);
-
-    setTimeout(() => {
-      span.remove();
-    }, 15700);
-
-    // Tambah vote
-    totalVote++;
-    document.getElementById("jumlah-vote").innerText = formatVote(totalVote);
-  }
-
-  function formatVote(n) {
-    if (n >= 1000000) return (n / 1000000).toFixed(1) + "M";
-    if (n >= 15700) return (n / 15700).toFixed(1) + "k";
-    return n;
-  }
-  </script>
 </body>
 </html>
