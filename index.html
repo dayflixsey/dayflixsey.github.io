@@ -160,12 +160,11 @@
       <p class="subtitle glow-text">Follow Akun Media Sosial Mimin 🤩👇</p>
 
       <div class="description">
-        <strong>🎬 Bstation</strong> – Platform utama mimin buat upload film & series pilihan! Di Bstation, kamu bisa nonton film seru mulai dari film aksi, drama,horor, sampai animasi terbaru atau yang lama ya cuy✨ Selain Di bstation kalian juga bisa nonton film nya di Channel Telegram milik mimin ya cuy🎬🍿 untuk Chennel Telegram ada di bawah ya cuy👇😁<br><br>
-        <strong>✂️ CapCut</strong> – Dan Selain upload Film mimin juga upload template capcut cuy dan kalian jangan lupa untuk follow² akun capcut mimin yaaa🗿😁🤙<br><br>
+        <strong>🎬 Bstation</strong> – Platform utama mimin buat upload film & series pilihan! Di Bstation, kamu bisa nonton film seru mulai dari aksi, drama, horor, sampai animasi terbaru atau yang lama ya cuy✨ Selain di Bstation, kalian juga bisa nonton film-nya di Channel Telegram milik mimin ya cuy🎬🍿 Untuk Channel Telegram ada di bawah ya cuy👇😁<br><br>
+        <strong>✂️ CapCut</strong> – Selain upload film, mimin juga upload template CapCut cuy. Kalian jangan lupa follow akun CapCut mimin yaaa🗿😁🤙<br><br>
         <strong>📱 Instagram</strong> – Ikuti mimin biar gak ketinggalan info cuyyy🔥
       </div>
 
-      <!-- Tombol Instagram dan CapCut , Bstation -->
       <a class="button" href="https://www.instagram.com/dayflixsey?igsh=MTNvandqNWZvMWN0cA==" target="_blank">
         <i class="fab fa-instagram"></i> Instagram
       </a>
@@ -175,19 +174,19 @@
       <a class="button" href="https://bili.im/lqFvujX" target="_blank">
         <i class="fas fa-film"></i> Bstation
       </a>
+
       <div class="description">
-  <strong>📲 Telegram Movie Channel</strong> – Gabung channel <strong>DayFlixsey Film</strong> di Telegram Mimin Upload Film Sub Indo Dan Dub Indo Ya Cuy🤙🎬📥<br><br> 
-Untuk Request Film Nya kalian tinggal komen di bstation mimin atau kirim judul film yang kalian inginkan di grup telegram mimin ya cuy🤩🍿🎬, nahh untuk grup nya mimin tulis di bio channel DayFlixseyFilm ya cuy😁🤙🔥.
+        <strong>📲 Telegram Movie Channel</strong> – Gabung channel <strong>DayFlixsey Film</strong> di Telegram. Mimin upload film Sub Indo dan Dub Indo ya cuy🤙🎬📥<br><br> 
+        Untuk request film, kalian bisa komen di Bstation mimin atau kirim judul film yang diinginkan di grup Telegram mimin ya cuy🤩🍿🎬. Link grup ada di bio Channel DayFlixseyFilm ya cuy😁🤙🔥.
       </div>
 
-<a class="button" href="https://t.me/dayflixseyfilm" target="_blank">
-  <i class="fab fa-telegram"></i> Nonton Film via Telegram
-</a>
-      
-      <!-- Business / Endorse -->
+      <a class="button" href="https://t.me/dayflixseyfilm" target="_blank">
+        <i class="fab fa-telegram"></i> Nonton Film via Telegram
+      </a>
+
       <div class="request-form">
         <h2 class="emoji">📩 Business / Endorse</h2>
-        <p>Untuk kerjasama promosi, endorse, atau kolaborasi bisa langsung hubungi mimin via Telegram/Instagram Ya Cuy🤙.:</p>
+        <p>Untuk kerjasama promosi, endorse, atau kolaborasi bisa langsung hubungi mimin via Telegram/Instagram ya cuy🤙:</p>
         <p>
           <a href="https://t.me/dayflixsey" target="_blank" class="button" style="margin: 10px 5px;">
             <i class="fab fa-telegram"></i> Telegram
@@ -199,7 +198,6 @@ Untuk Request Film Nya kalian tinggal komen di bstation mimin atau kirim judul f
         <p>Mimin fast respon dan terbuka buat semua jenis kerja sama 💼✨</p>
       </div>
 
-      <!-- Donasi -->
       <div class="donasi">
         <h2 class="emoji">💰 Dukung Mimin via DANA 😁💖</h2>
         <img src="dana.png" alt="QR Code DANA">
@@ -209,7 +207,6 @@ Untuk Request Film Nya kalian tinggal komen di bstation mimin atau kirim judul f
         </a>
       </div>
 
-      <!-- Musik -->
       <div class="music-player">
         <h3>🎵 Musik</h3>
         <audio controls>
@@ -218,20 +215,21 @@ Untuk Request Film Nya kalian tinggal komen di bstation mimin atau kirim judul f
         </audio>
       </div>
 
-      <!-- Pengunjung -->
       <p class="pengunjung-glow">
-  Pengunjung Website : <strong><span id="counter">8890</span>+ Orang</strong>
-</p>
+        Pengunjung Website : <strong><span id="counter">8890</span>+ Orang</strong>
+      </p>
 
-<script>
-  let count = 8890;
-  setInterval(() => {
-    count += Math.floor(Math.random() * 3); // naik antara 0–2 setiap 3 detik
-    document.getElementById("counter").innerText = count.toLocaleString();
-  }, 3000);
-</script>
+      <script>
+        let count = localStorage.getItem("visitorCount") || 8890;
+        count = parseInt(count);
 
-      <!-- Footer -->
+        setInterval(() => {
+          count += Math.floor(Math.random() * 3);
+          document.getElementById("counter").innerText = count.toLocaleString();
+          localStorage.setItem("visitorCount", count);
+        }, 3000);
+      </script>
+
       <footer>
         &copy; 2025 DayFlixsey. All rights reserved.
       </footer>
