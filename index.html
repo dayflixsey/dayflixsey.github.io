@@ -216,19 +216,29 @@
       </div>
 
       <p class="pengunjung-glow">
-        Pengunjung Website : <strong><span id="counter">8890</span>+ Orang</strong>
-      </p>
+  Total Pengunjung : <strong><span id="counter">8890</span>+ Orang</strong>
+</p>
 
-      <script>
-        let count = localStorage.getItem("visitorCount") || 8890;
-        count = parseInt(count);
+<script>
+  const startCount = 8890;
+  const now = new Date().getTime();
+  const lastVisit = localStorage.getItem("lastVisit") || now;
+  const diff = now - lastVisit;
+  const added = Math.floor(diff / (1000 * 60 * 5)); // nambah 1 tiap 5 menit
 
-        setInterval(() => {
-          count += Math.floor(Math.random() * 3);
-          document.getElementById("counter").innerText = count.toLocaleString();
-          localStorage.setItem("visitorCount", count);
-        }, 3000);
-      </script>
+  let count = parseInt(localStorage.getItem("visitorCount")) || startCount;
+  count += added;
+
+  document.getElementById("counter").innerText = count.toLocaleString();
+  localStorage.setItem("visitorCount", count);
+  localStorage.setItem("lastVisit", now);
+
+  setInterval(() => {
+    count += Math.floor(Math.random() * 3); // tiap 3 detik naik 0–2
+    document.getElementById("counter").innerText = count.toLocaleString();
+    localStorage.setItem("visitorCount", count);
+  }, 3000);
+</script>
 
       <footer>
         &copy; 2025 DayFlixsey. All rights reserved.
