@@ -219,7 +219,17 @@ Untuk Request Film Nya kalian tinggal komen di bstation mimin atau kirim judul f
       </div>
 
       <!-- Pengunjung -->
-      <p class="pengunjung-glow"> Pengunjung Website : <strong>8.8k+ Orang </strong></p>
+      <p class="pengunjung-glow">
+  Pengunjung Website : <strong><span id="counter">8890</span>+ Orang</strong>
+</p>
+
+<script>
+  let count = 8890;
+  setInterval(() => {
+    count += Math.floor(Math.random() * 3); // naik antara 0–2 setiap 3 detik
+    document.getElementById("counter").innerText = count.toLocaleString();
+  }, 3000);
+</script>
 
       <!-- Footer -->
       <footer>
