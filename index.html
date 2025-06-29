@@ -1,119 +1,99 @@
 <!DOCTYPE html><html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slot Zeus - Hiburan</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Tembak-Tembakan</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      overflow: hidden;
+      background: black;
     }
-    .slot-container {
-      background: #111;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px #ffd700;
-      text-align: center;
-      width: 320px;
-    }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      color: gold;
-    }
-    .reels {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .reel {
-      width: 60px;
-      height: 60px;
-      background: #000;
-      margin: 0 5px;
-      border: 3px solid #ffd700;
-      border-radius: 12px;
-      font-size: 36px;
-      line-height: 60px;
-      animation: spin 0.5s ease-in-out;
-    }
-    .spin-btn {
-      background: gold;
-      color: #000;
-      border: none;
-      padding: 12px 30px;
-      font-weight: bold;
-      font-size: 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .spin-btn:hover {
-      background: #ffcf00;
-      transform: scale(1.05);
-    }
-    .result {
-      margin-top: 20px;
-      font-size: 20px;
-      color: #00ffae;
-      min-height: 24px;
-    }
-    @keyframes spin {
-      0% { transform: scaleY(0.8); }
-      50% { transform: scaleY(1.2); }
-      100% { transform: scaleY(1); }
+    canvas {
+      display: block;
     }
   </style>
 </head>
 <body>
-  <div class="slot-container">
-    <h1>🎰 Zeus Slot</h1>
-    <div class="reels">
-      <div class="reel" id="reel1">🍇</div>
-      <div class="reel" id="reel2">🔔</div>
-      <div class="reel" id="reel3">🍋</div>
-    </div>
-    <button class="spin-btn" onclick="spin()">SPIN!</button>
-    <div class="result" id="result"></div>
-  </div><audio id="spinSound" src="https://assets.mixkit.co/active_storage/sfx/2333/2333-preview.mp3" preload="auto"></audio> <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/3520/3520-preview.mp3" preload="auto"></audio> <audio id="failSound" src="https://assets.mixkit.co/active_storage/sfx/563/563-preview.mp3" preload="auto"></audio>
+  <canvas id="gameCanvas"></canvas>  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-  <script>
-    const symbols = ["🍇", "🔔", "🍋", "💎", "⭐", "👑"];
-    const spinSound = document.getElementById("spinSound");
-    const winSound = document.getElementById("winSound");
-    const failSound = document.getElementById("failSound");
+    const player = {
+      x: canvas.width / 2,
+      y: canvas.height - 60,
+      width: 40,
+      height: 20,
+      color: 'lime'
+    };
 
-    function spin() {
-      spinSound.play();
-      let reels = [
-        document.getElementById("reel1"),
-        document.getElementById("reel2"),
-        document.getElementById("reel3")
-      ];
-      let results = [];
+    const bullets = [];
+    const enemies = [];
 
-      reels.forEach((reel, i) => {
-        const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-        reel.innerText = randomSymbol;
-        results.push(randomSymbol);
-      });
-
-      let resultText = document.getElementById("result");
-      if (results[0] === results[1] && results[1] === results[2]) {
-        resultText.innerText = "🎉 JACKPOT! 🎉";
-        winSound.play();
-      } else {
-        resultText.innerText = "Coba Lagi Ya Cuy!";
-        failSound.play();
-      }
+    function drawPlayer() {
+      ctx.fillStyle = player.color;
+      ctx.fillRect(player.x, player.y, player.width, player.height);
     }
+
+    function drawBullets() {
+      ctx.fillStyle = 'red';
+      bullets.forEach((b, i) => {
+        b.y -= 5;
+        ctx.fillRect(b.x, b.y, 5, 10);
+        if (b.y < 0) bullets.splice(i, 1);
+      });
+    }
+
+    function drawEnemies() {
+      ctx.fillStyle = 'yellow';
+      enemies.forEach((e, i) => {
+        e.y += 2;
+        ctx.fillRect(e.x, e.y, e.size, e.size);
+        if (e.y > canvas.height) enemies.splice(i, 1);
+      });
+    }
+
+    function detectCollision() {
+      bullets.forEach((b, bi) => {
+        enemies.forEach((e, ei) => {
+          if (
+            b.x < e.x + e.size &&
+            b.x + 5 > e.x &&
+            b.y < e.y + e.size &&
+            b.y + 10 > e.y
+          ) {
+            bullets.splice(bi, 1);
+            enemies.splice(ei, 1);
+          }
+        });
+      });
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPlayer();
+      drawBullets();
+      drawEnemies();
+      detectCollision();
+      requestAnimationFrame(gameLoop);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') player.x -= 20;
+      if (e.key === 'ArrowRight') player.x += 20;
+      if (e.key === ' ') bullets.push({ x: player.x + player.width / 2 - 2.5, y: player.y });
+    });
+
+    setInterval(() => {
+      enemies.push({
+        x: Math.random() * canvas.width,
+        y: 0,
+        size: 30
+      });
+    }, 1000);
+
+    gameLoop();
   </script></body>
 </html>
