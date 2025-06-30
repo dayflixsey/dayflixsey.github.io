@@ -1,99 +1,44 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Tembak-Tembakan</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clicker Game</title>
   <style>
     body {
-      margin: 0;
-      overflow: hidden;
-      background: black;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background: #f0f0f0;
     }
-    canvas {
-      display: block;
+
+    h1 {
+      color: #333;
+    }
+
+    button {
+      padding: 20px 40px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <canvas id="gameCanvas"></canvas>  <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  <h1>Simple Clicker Game</h1>
+  <p>Score: <span id="score">0</span></p>
+  <button id="clickBtn">Click me!</button>
 
-    const player = {
-      x: canvas.width / 2,
-      y: canvas.height - 60,
-      width: 40,
-      height: 20,
-      color: 'lime'
-    };
+  <script>
+    let score = 0;
 
-    const bullets = [];
-    const enemies = [];
+    const scoreEl = document.getElementById('score');
+    const clickBtn = document.getElementById('clickBtn');
 
-    function drawPlayer() {
-      ctx.fillStyle = player.color;
-      ctx.fillRect(player.x, player.y, player.width, player.height);
-    }
-
-    function drawBullets() {
-      ctx.fillStyle = 'red';
-      bullets.forEach((b, i) => {
-        b.y -= 5;
-        ctx.fillRect(b.x, b.y, 5, 10);
-        if (b.y < 0) bullets.splice(i, 1);
-      });
-    }
-
-    function drawEnemies() {
-      ctx.fillStyle = 'yellow';
-      enemies.forEach((e, i) => {
-        e.y += 2;
-        ctx.fillRect(e.x, e.y, e.size, e.size);
-        if (e.y > canvas.height) enemies.splice(i, 1);
-      });
-    }
-
-    function detectCollision() {
-      bullets.forEach((b, bi) => {
-        enemies.forEach((e, ei) => {
-          if (
-            b.x < e.x + e.size &&
-            b.x + 5 > e.x &&
-            b.y < e.y + e.size &&
-            b.y + 10 > e.y
-          ) {
-            bullets.splice(bi, 1);
-            enemies.splice(ei, 1);
-          }
-        });
-      });
-    }
-
-    function gameLoop() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawPlayer();
-      drawBullets();
-      drawEnemies();
-      detectCollision();
-      requestAnimationFrame(gameLoop);
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') player.x -= 20;
-      if (e.key === 'ArrowRight') player.x += 20;
-      if (e.key === ' ') bullets.push({ x: player.x + player.width / 2 - 2.5, y: player.y });
+    clickBtn.addEventListener('click', () => {
+      score++;
+      scoreEl.textContent = score;
     });
-
-    setInterval(() => {
-      enemies.push({
-        x: Math.random() * canvas.width,
-        y: 0,
-        size: 30
-      });
-    }, 1000);
-
-    gameLoop();
-  </script></body>
+  </script>
+</body>
 </html>
