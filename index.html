@@ -4,22 +4,34 @@
   <meta charset="UTF-8" />
   <title>Simple Platformer Game</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       overflow: hidden;
+      height: 100%;
       background: #333;
     }
     canvas {
       display: block;
+      width: 100vw;
+      height: 100vh;
       background: linear-gradient(to top, #444, #87ceeb);
     }
   </style>
 </head>
 <body>
-  <canvas id="gameCanvas" width="800" height="400"></canvas>
+  <canvas id="gameCanvas"></canvas>
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
+
+    // Auto resize canvas
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     // Game world
     const player = {
@@ -40,7 +52,7 @@
     const keys = {};
 
     const platforms = [
-      { x: 0, y: 350, width: 800, height: 50 },
+      { x: 0, y: window.innerHeight - 50, width: window.innerWidth, height: 50 },
       { x: 200, y: 250, width: 100, height: 10 },
       { x: 400, y: 200, width: 150, height: 10 },
       { x: 600, y: 300, width: 100, height: 10 },
